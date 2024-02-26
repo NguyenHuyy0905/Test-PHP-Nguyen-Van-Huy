@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -20,6 +21,19 @@ return new class extends Migration
             $table->tinyInteger('available')->default(0);
             $table->timestamps();
         });
+
+        // Insert 10 records into the books table
+        for ($i = 1; $i <= 10; $i++) {
+            DB::table('books')->insert([
+                'title' => 'Book ' . $i,
+                'authorid' => rand(1, 10), // Assuming you have authors table with IDs from 1 to 10
+                'ISBN' => 'ISBN' . $i,
+                'pub_year' => rand(2000, 2022),
+                'available' => rand(0, 1),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 
     /**
